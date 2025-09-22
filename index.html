@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P2P Chat</title>
+</head>
+<body>
+    <h2>P2P Chat</h2>
+    <textarea id="chat" rows="10" cols="50" readonly></textarea><br>
+    <input id="message" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
