@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Piye to Piye Chat</title>
+    <style>
+        body { font-family: Arial; background: #f4f4f4; padding: 0; margin: 0; }
+        #chat-box { height: 400px; overflow-y: scroll; padding: 10px; background: white; border: 1px solid #ccc; }
+        #form { display: flex; }
+        #input { flex: 1; padding: 10px; border: 1px solid #ccc; }
+        #send { padding: 10px; }
+        .message { margin: 5px 0; padding: 5px; background: #e6e6e6; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">💬 Piye to Piye Chat</h2>
+    <div id="chat-box"></div>
+    <form id="form" action="">
+        <input id="input" autocomplete="off" placeholder="Lemba message..." />
+        <button id="send">Tuma</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const chatBox = document.getElementById('chat-box');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        });
+
+        socket.on('chat message', function(msg) {
+            const div = document.createElement('div');
+            div.classList.add('message');
+            div.textContent = msg;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+    </script>
+</body>
+</html>
